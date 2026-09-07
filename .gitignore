@@ -1,0 +1,14 @@
+# 用户配置（含账号密码，严禁提交）
+eportal.conf
+
+# 运行时产物
+*.log
+*.cache
+*.jar
+*.pem
+*.der
+*.cnf
+*.bin
+
+# 单实例锁目录
+auth.lock/

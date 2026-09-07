@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 ShellCheck
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+
+      - name: ShellCheck 静态检查
+        # init/openwrt-init-eportal 为 OpenWrt rc.common 专用格式（解释器为
+        # /bin/sh /etc/rc.common），不参与标准 shell 检查
+        run: shellcheck -S error eportal-auth.sh eportal-watchdog.sh install.sh tests/test-basic.sh
+
+      - name: 基础测试
+        run: bash tests/test-basic.sh
